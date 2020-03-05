@@ -38,7 +38,9 @@ public class ShutdownTask implements Runnable {
             module.stopLogins();
             movePlayers();
             if(shutdownTask == -1) {
-                shutdownTask = module.getServer().getScheduler().scheduleSyncDelayedTask(module, () -> module.getServer().shutdown(), 20);
+                shutdownTask = module.getServer().getScheduler().scheduleSyncDelayedTask(module,
+                        () -> module.getServer().shutdown(),
+                        module.getConfig().getInt("shutdownDelay", 1) * 20);
             }
         }
         for(final Player player : players) {
