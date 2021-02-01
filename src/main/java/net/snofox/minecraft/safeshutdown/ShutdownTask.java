@@ -55,8 +55,12 @@ public class ShutdownTask implements Runnable {
             } catch(NoClassDefFoundError ignored) {
                 // No combat tagging
             }
-            player.sendTitle("Server Restarting", "You were moved to the lobby", 20, 100, 50);
-            BungeeCord.movePlayerToServer(player, module.getConfig().getString("lobbyServer", "nexus"));
+            if(!module.getConfig().getString("lobbyServer").isEmpty()) {
+                player.sendTitle("Server Restarting", "You were moved to the lobby", 20, 100, 50);
+                BungeeCord.movePlayerToServer(player, module.getConfig().getString("lobbyServer", "nexus"));
+            } else {
+                player.kickPlayer(module.getServer().getShutdownMessage());
+            }
         }
     }
 
