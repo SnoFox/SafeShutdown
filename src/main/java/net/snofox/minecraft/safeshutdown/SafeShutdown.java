@@ -36,7 +36,7 @@ public final class SafeShutdown extends JavaPlugin implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onPlayerLogin(final PlayerLoginEvent ev) {
-        if(!allowLogins) {
+        if(!allowLogins && !ev.getPlayer().hasPermission("safeshutdown.dontdeny")) {
             ev.setResult(PlayerLoginEvent.Result.KICK_FULL);
             ev.setKickMessage("Server restarting");
         }

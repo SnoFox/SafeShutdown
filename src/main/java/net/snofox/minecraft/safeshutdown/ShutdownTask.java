@@ -7,6 +7,7 @@ import net.md_5.bungee.api.chat.TextComponent;
 import net.snofox.deadlydisconnects.DeadlyDisconnects;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Collection;
 import java.util.Date;
@@ -34,7 +35,7 @@ public class ShutdownTask implements Runnable {
         if(players.size() < 1) {
           module.getServer().shutdown();
         } else if(shutdownDate.before(new Date())) {
-            if(module.getServer().spigot().getConfig().getBoolean("settings.bungeecord")) module.stopLogins();
+            module.stopLogins();
             movePlayers();
             if(shutdownTask == -1) {
                 shutdownTask = module.getServer().getScheduler().scheduleSyncDelayedTask(module,
