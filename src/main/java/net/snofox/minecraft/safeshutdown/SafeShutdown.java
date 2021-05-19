@@ -3,14 +3,11 @@ package net.snofox.minecraft.safeshutdown;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class SafeShutdown extends JavaPlugin implements Listener {
     private int taskId = -1;
-    private boolean allowLogins = true;
 
     @Override
     public void onEnable() {
@@ -32,17 +29,5 @@ public final class SafeShutdown extends JavaPlugin implements Listener {
         taskId = getServer().getScheduler().scheduleSyncRepeatingTask(this, task, 1, 20);
         if(taskId == -1) sender.sendMessage("Failed to schedule task");
         return true;
-    }
-
-    @EventHandler(ignoreCancelled = true)
-    public void onPlayerLogin(final PlayerLoginEvent ev) {
-        if(!allowLogins && !ev.getPlayer().hasPermission("safeshutdown.dontdeny")) {
-            ev.setResult(PlayerLoginEvent.Result.KICK_FULL);
-            ev.setKickMessage("Server restarting");
-        }
-    }
-
-    public void stopLogins() {
-        allowLogins = false;
     }
 }

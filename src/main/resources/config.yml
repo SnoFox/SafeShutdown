@@ -1,2 +1,2 @@
 lobbyServer: nexus
-shutdownDelay: 5
+shutdownDelay: 30
