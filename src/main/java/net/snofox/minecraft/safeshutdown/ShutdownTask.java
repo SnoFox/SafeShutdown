@@ -29,9 +29,8 @@ public class ShutdownTask implements Runnable {
     @Override
     public void run() {
         final Collection<? extends Player> players = module.getServer().getOnlinePlayers();
-        TextComponent message = new TextComponent("Server restarting " + estimateDuration(shutdownDate) + "; get safe!");
+        final TextComponent message = new TextComponent("Server restarting " + estimateDuration(shutdownDate) + "; get safe!");
         message.setColor(ChatColor.RED);
-        module.getLogger().info("Shutting down in " + estimateDuration(shutdownDate));
         if(players.size() < 1) {
           module.getServer().shutdown();
         } else if(shutdownDate.before(new Date())) {
